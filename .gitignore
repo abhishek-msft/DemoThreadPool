@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/DemoThreadPoolLibrary/bin/Debug/net5.0
+/DemoThreadPoolLibrary/obj
+/.vs/DemoThreadPool/v17
+/DemoThreadPoolDebug/bin/Debug/net5.0
+/DemoThreadPoolDebug/obj
+/DemoThreadPoolTests/bin/Debug/net5.0
+/DemoThreadPoolTests/obj
