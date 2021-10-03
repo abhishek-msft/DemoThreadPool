@@ -4,6 +4,9 @@ using System.Threading;
 
 namespace DemoThreadPoolDebug
 {
+    /// <summary>
+    /// This class is being used to debug the thread pool and visually see the threads in action
+    /// </summary>
     internal class Program
     {
         static void Main(string[] args)
@@ -28,7 +31,7 @@ namespace DemoThreadPoolDebug
                 });
             }
 
-            Console.WriteLine("Starting the jobs just in a moment...");
+            Console.WriteLine("Starting threads...");
             while (threadPool.WaitingQueueCount > 0)
             {
                 Thread.Sleep(500);
@@ -36,7 +39,6 @@ namespace DemoThreadPoolDebug
 
             Console.WriteLine($"Thread Count-{threadPool.ThreadCount}");
             Console.WriteLine($"Total Time - {threadPool.LastThreadCompleted.Subtract(startTime)}");
-            //Console.ReadLine();
         }
     }
 }

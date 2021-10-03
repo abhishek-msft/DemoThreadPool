@@ -8,11 +8,29 @@ namespace DemoThreadPoolLibrary
 
     public class DemoThreadPool
     {
+        /// <summary>
+        /// Stores the max thread size of the pool
+        /// </summary>
         private readonly int poolSize;
+        
+        /// <summary>
+        /// Thread Pool stored in a dictionary for O(1) removal of thread if required
+        /// </summary>
         private readonly ConcurrentDictionary<string, Thread> threads;
+
+        /// <summary>
+        /// Queue for holding the work items
+        /// </summary>
         private readonly ConcurrentQueue<WorkItem> workItemQueue;
+
+        /// <summary>
+        /// Stores the time stamp for the last completed thread
+        /// </summary>
         private DateTime lastThreadCompleted;
 
+        /// <summary>
+        /// Gets the current Thread Count of the Pool
+        /// </summary>
         public int ThreadCount
         {
             get
@@ -21,6 +39,9 @@ namespace DemoThreadPoolLibrary
             }
         }
 
+        /// <summary>
+        /// Gets the count of pending work items
+        /// </summary>
         public int WaitingQueueCount
         {
             get
@@ -29,6 +50,9 @@ namespace DemoThreadPoolLibrary
             }
         }
 
+        /// <summary>
+        /// Gets the timestamp of the last completed thread
+        /// </summary>
         public DateTime LastThreadCompleted
         {
             get
@@ -98,6 +122,9 @@ namespace DemoThreadPoolLibrary
             }
         }
 
+        /// <summary>
+        /// Spawns threads until the max limit is reached
+        /// </summary>
         private void SpawnThreads()
         {
             while (threads.Count < poolSize)

@@ -8,17 +8,29 @@ This ThreadPool is based on a ConcurrentDictionary and sync locks to manage the 
 using DemoThreadPoolLibrary;
 ....
 
-public void SomeMethod()
-{
-  var threadPool = new ThreadPool(4);
-  for (int i=0; i<100; i++)
-  {
-    pool.QueueWorkItem((data) =>
+    public void Run(int maxThreads, int iterations)
     {
-      Console.WriteLine($"Running {i}th thread.");
-    }, i);
-  }
-}
+        var threadPool = new DemoThreadPool(maxThreads);
+        var startTime = DateTime.UtcNow;
+        for (int i = 0; i < iterations; ++i)
+        {
+            var index = i;
+            threadPool.QueueUserWorkItem(() =>
+            {
+                Thread.Sleep(1);
+                Console.WriteLine($"Executing thread-{index + 1}");
+            });
+        }
+
+        Console.WriteLine("Starting threads...");
+        while (threadPool.WaitingQueueCount > 0)
+        {
+            Thread.Sleep(500);
+        }           
+
+        Console.WriteLine($"Thread Count-{threadPool.ThreadCount}");
+        Console.WriteLine($"Total Time - {threadPool.LastThreadCompleted.Subtract(startTime)}");
+    }
 ...
 
 ```
