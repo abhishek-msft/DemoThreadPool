@@ -12,7 +12,7 @@ using DemoThreadPoolLibrary;
         Run(4, 100);
     }
     
-    public static void Run(int maxThreads, int iterations)
+    private static void Run(int maxThreads, int iterations)
     {
         var threadPool = new DemoThreadPool(maxThreads);
         var startTime = DateTime.UtcNow;
