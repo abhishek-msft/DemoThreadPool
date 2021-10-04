@@ -12,9 +12,10 @@ namespace DemoThreadPoolDebug
         static void Main(string[] args)
         {
             Console.WriteLine(Environment.ProcessorCount);
-            Run(2, 100);
-            Run(5, 100);
-            Run(100, 100);
+            Run(2, 1000);
+            Run(5, 1000);
+            Run(100, 1000);
+            Run(200, 1000);
         }
 
         static void Run(int maxThreads, int iterations)
