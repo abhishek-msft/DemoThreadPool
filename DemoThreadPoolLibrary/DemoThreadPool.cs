@@ -12,7 +12,7 @@ namespace DemoThreadPoolLibrary
         /// Stores the max thread size of the pool
         /// </summary>
         private readonly int poolSize;
-        
+
         /// <summary>
         /// Thread Pool stored in a dictionary for O(1) removal of thread if required
         /// </summary>
@@ -145,20 +145,14 @@ namespace DemoThreadPoolLibrary
         {
             while (true)
             {
-                if (RemoveThread())
-                {
-                    return;
-                }
+                // if there is no work item and thread count is less than the pool size
+                // wait for the queue
                 while (workItemQueue.IsEmpty && poolSize >= threads.Count)
                 {
                     lock (workItemQueue)
                     {
                         Monitor.Wait(workItemQueue);
                     }
-                }
-                if (RemoveThread())
-                {
-                    return;
                 }
                 workItemQueue.TryDequeue(out var workItem);
                 if (workItem != null)
@@ -167,20 +161,6 @@ namespace DemoThreadPoolLibrary
                     lastThreadCompleted = DateTime.UtcNow;
                 }
             }
-        }
-
-        /// <summary>
-        /// Remove the thread
-        /// </summary>
-        /// <returns></returns>
-        private bool RemoveThread()
-        {
-            if (poolSize < threads.Count)
-            {
-                return threads.TryRemove(Thread.CurrentThread.Name, out _);
-            }
-
-            return false;
         }
     }
 }
