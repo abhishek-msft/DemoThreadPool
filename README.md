@@ -7,8 +7,12 @@ This ThreadPool is based on a ConcurrentDictionary and sync locks to manage the 
 ```
 using DemoThreadPoolLibrary;
 ....
-
-    public void Run(int maxThreads, int iterations)
+    public static void Main() 
+    {
+        Run(4, 100);
+    }
+    
+    public static void Run(int maxThreads, int iterations)
     {
         var threadPool = new DemoThreadPool(maxThreads);
         var startTime = DateTime.UtcNow;
